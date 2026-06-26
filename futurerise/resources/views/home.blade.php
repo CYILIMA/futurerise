@@ -5,7 +5,7 @@
         <div class="container hero-grid">
             <div class="hero-copy">
                 <p class="eyebrow">Non-governmental organisation</p>
-                <h1>Future Rise Foundation</h1>
+                <h1>FutureRise Foundation</h1>
                 <p class="hero-lead">We help children, youth, and vulnerable families rise through education support, community care, skills development, and sustainable local projects.</p>
                 <div class="hero-actions">
                     <a class="button primary" href="{{ route('donate') }}">Donate Now</a>

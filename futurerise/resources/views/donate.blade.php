@@ -48,4 +48,62 @@
             </div>
         </div>
     </section>
+
+    <section class="section">
+        <div class="container">
+            @if(session('status'))
+                <div class="form-success">{{ session('status') }}</div>
+            @endif
+
+            <div class="contact-form">
+                <h2>Request donation contact</h2>
+                <form action="{{ route('donate.store') }}" method="post">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="name">Full name</label>
+                        <input id="name" name="name" type="text" value="{{ old('name') }}" required>
+                        @error('name')
+                            <p class="form-alert">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <p class="form-alert">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input id="phone" name="phone" type="text" value="{{ old('phone') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donation_type">Donation type</label>
+                        <select id="donation_type" name="donation_type" required>
+                            <option value="Once-off donation">Once-off donation</option>
+                            <option value="Monthly giving">Monthly giving</option>
+                            <option value="Corporate support">Corporate support</option>
+                            <option value="Volunteer support">Volunteer support</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input id="amount" name="amount" type="text" value="{{ old('amount') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Extra message</label>
+                        <textarea id="message" name="message" rows="5">{{ old('message') }}</textarea>
+                    </div>
+
+                    <button class="button primary" type="submit">Submit donation request</button>
+                </form>
+            </div>
+        </div>
+    </section>
 @endsection

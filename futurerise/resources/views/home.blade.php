@@ -28,8 +28,10 @@
                         </div>
 
                         <div class="carousel-cont                                                                                                                                                                                                                                                                                                     rols">
-                            <button class="carousel-button prev" type="button" aria-label="Previous photo">&#10094;</button>
-                            <button class="carousel-button next" type="button" aria-label="Next photo">&#10095;</button>
+                            <div class="carousel-controls">
+                                <button class="carousel-button prev" type="button" aria-label="Previous photo">&#10094;</button>
+                                <button class="carousel-button next" type="button" aria-label="Next photo">&#10095;</button>
+                            </div>
                         </div>
 
                         <div class="carousel-indicators">

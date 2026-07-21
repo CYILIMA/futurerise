@@ -18,6 +18,11 @@ class AdminCourseController extends Controller
         ]);
     }
 
+    public function edit(Course $course): View
+    {
+        return view('admin.courses.edit', compact('course'));
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([

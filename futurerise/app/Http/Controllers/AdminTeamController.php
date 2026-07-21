@@ -17,6 +17,11 @@ class AdminTeamController extends Controller
         ]);
     }
 
+    public function edit(TeamMember $teamMember): View
+    {
+        return view('admin.team.edit', compact('teamMember'));
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([

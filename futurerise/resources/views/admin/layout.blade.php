@@ -25,6 +25,7 @@
             <a href="{{ route('admin.donations.index') }}" @class(['active' => request()->routeIs('admin.donations.index')])>Donations</a>
             <a href="{{ route('admin.social.index') }}" @class(['active' => request()->routeIs('admin.social.index')])>Social Manager</a>
             <a href="{{ route('admin.logo.edit') }}" @class(['active' => request()->routeIs('admin.logo.edit')])>Logo Settings</a>
+            <a href="{{ route('admin.background.edit') }}" @class(['active' => request()->routeIs('admin.background.edit')])>Background Settings</a>
             <a href="{{ route('home') }}">View Website</a>
         </nav>
 

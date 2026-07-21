@@ -69,7 +69,8 @@
                     <th>Role</th>
                     <th>Background</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Edit member</th>
+                    <th>Delete member</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,7 +86,15 @@
                                 {{ $member->is_active ? 'Visible' : 'Hidden' }}
                             </span>
                         </td>
-                        <td class="table-actions">
+                        <td><a class="button secondary" href="{{ route('admin.team.edit', $member) }}">Edit</a></td>
+                        <td>
+                            <form action="{{ route('admin.team.destroy', $member) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="button danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <td class="table-actions legacy-inline-editor">
                             <form action="{{ route('admin.team.update', $member) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -125,7 +134,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No staff members have been added yet.</td>
+                        <td colspan="6">No staff members have been added yet.</td>
                     </tr>
                 @endforelse
             </tbody>

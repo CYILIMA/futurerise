@@ -7,7 +7,7 @@
     <title>{{ $title ?? 'Future Rise Foundation' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body @class(['site-background-enabled' => $siteBackground?->image_path]) @if($siteBackground?->image_path) style="--site-background-image: url('{{ asset('storage/'.$siteBackground->image_path) }}');" @endif>
     <header class="site-header">
         <nav class="nav container" aria-label="Main navigation">
             <a class="brand" href="{{ route('home') }}" aria-label="Future Rise Foundation home">

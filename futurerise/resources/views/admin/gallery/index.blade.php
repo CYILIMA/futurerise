@@ -13,7 +13,7 @@
         <div class="form-success">{{ session('status') }}</div>
     @endif
 
-    <section class="admin-card">
+    <section class="admin-form">
         <form action="{{ route('admin.gallery.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
@@ -37,34 +37,56 @@
         </form>
     </section>
 
-    <section class="admin-card">
+    <section class="admin-table-card">
         <h2>Existing photos</h2>
-        <div class="gallery-list">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Caption</th>
+                    <th scope="col">Visibility</th>
+                    <th scope="col">Save</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
             @forelse($photos as $photo)
-                <article class="gallery-item">
-                    <img src="{{ asset('storage/'.$photo->image_path) }}" alt="Gallery photo" width="180">
-                    <form action="{{ route('admin.gallery.update', $photo) }}" method="post" class="gallery-item-form">
-                        @csrf
-                        @method('PUT')
-                        <label>
-                            Caption
-                            <input name="caption" value="{{ $photo->caption }}" type="text">
-                        </label>
-                        <label>
-                            Active
-                            <input name="is_active" type="checkbox" value="1" {{ $photo->is_active ? 'checked' : '' }}>
-                        </label>
-                        <button class="button secondary" type="submit">Save</button>
-                    </form>
-                    <form action="{{ route('admin.gallery.destroy', $photo) }}" method="post" class="gallery-item-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button class="button danger" type="submit">Delete</button>
-                    </form>
-                </article>
+                <tr>
+                    <td>
+                        {{ $loop->iteration }}
+                        <form id="gallery-photo-{{ $photo->id }}" action="{{ route('admin.gallery.update', $photo) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                        </form>
+                    </td>
+                    <td><img class="admin-table-image" src="{{ asset('storage/'.$photo->image_path) }}" alt="Gallery photo"></td>
+                    <td>
+                            <input form="gallery-photo-{{ $photo->id }}" aria-label="Caption for photo {{ $loop->iteration }}" name="caption" value="{{ $photo->caption }}" type="text" placeholder="No caption">
+                    </td>
+                    <td>
+                            <label class="checkbox-row">
+                                <input form="gallery-photo-{{ $photo->id }}" name="is_active" type="checkbox" value="1" {{ $photo->is_active ? 'checked' : '' }}>
+                                <span>{{ $photo->is_active ? 'Visible' : 'Hidden' }}</span>
+                            </label>
+                    </td>
+                    <td>
+                            <button form="gallery-photo-{{ $photo->id }}" class="button secondary" type="submit">Save</button>
+                    </td>
+                    <td>
+                        <form action="{{ route('admin.gallery.destroy', $photo) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="button danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
             @empty
-                <p>No photos have been uploaded yet.</p>
+                <tr>
+                    <td colspan="6">No photos have been uploaded yet.</td>
+                </tr>
             @endforelse
-        </div>
+            </tbody>
+        </table>
     </section>
 @endsection

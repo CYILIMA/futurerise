@@ -39,8 +39,16 @@
 body {
     margin: 0;
     color: var(--ink);
-    background: var(--white);
+    background: var(--white) var(--site-background-image, none) center / cover fixed no-repeat;
     font-family: var(--font-sans);
+}
+
+/* Let the admin-selected background show through public page sections. */
+body.site-background-enabled .hero,
+body.site-background-enabled .section,
+body.site-background-enabled .page-hero {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(2px);
 }
 
 a {
@@ -765,7 +773,14 @@ textarea {
     transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
     padding: 0;
     line-height: 1;
+    color: var(--social-color, var(--green-800));
 }
+
+.social-link--facebook { --social-color: #1877f2; }
+.social-link--instagram { --social-color: #e4405f; }
+.social-link--linkedin { --social-color: #0a66c2; }
+.social-link--x { --social-color: #111111; }
+.social-link--youtube { --social-color: #ff0000; }
 
 .social-link svg {
     display: block;
@@ -780,19 +795,19 @@ textarea {
 .social-link:active {
     transform: translateY(-2px);
     color: var(--white);
-    background: var(--green-700);
-    border-color: var(--green-700);
+    background: var(--social-color, var(--green-700));
+    border-color: var(--social-color, var(--green-700));
 }
 
 .social-link-muted {
     opacity: 0.72;
-    cursor: default;
+    cursor: pointer;
 }
 
 .social-link-muted:hover {
-    transform: none;
+    transform: translateY(-2px);
     color: var(--white);
-    background: var(--green-700);
+    background: var(--social-color, var(--green-700));
 }
 
 .copyright {
@@ -1125,6 +1140,11 @@ textarea {
     overflow-x: auto;
 }
 
+.admin-table-card > h2 {
+    margin: 0;
+    padding: 22px 22px 0;
+}
+
 .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -1139,9 +1159,30 @@ textarea {
 }
 
 .admin-table th {
+    background: var(--green-50);
     color: var(--green-950);
     font-size: 0.82rem;
     text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(242, 251, 245, 0.55);
+}
+
+.admin-table input,
+.admin-table textarea,
+.admin-table select {
+    width: 100%;
+    min-width: 180px;
+}
+
+.admin-table-image {
+    display: block;
+    width: 96px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
 }
 
 .admin-table td span {
@@ -1169,6 +1210,10 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+}
+
+.legacy-inline-editor {
+    display: none;
 }
 
 .table-actions a,

@@ -107,7 +107,8 @@
                     <th>Title</th>
                     <th>Summary</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Edit course</th>
+                    <th>Delete course</th>
                 </tr>
             </thead>
             <tbody>
@@ -120,7 +121,15 @@
                                 {{ $course->is_active ? 'Visible' : 'Hidden' }}
                             </span>
                         </td>
-                        <td class="table-actions">
+                        <td><a class="button secondary" href="{{ route('admin.courses.edit', $course) }}">Edit</a></td>
+                        <td>
+                            <form action="{{ route('admin.courses.destroy', $course) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="button danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <td class="table-actions legacy-inline-editor">
                             <form action="{{ route('admin.courses.update', $course) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -186,7 +195,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No courses have been created yet.</td>
+                        <td colspan="5">No courses have been created yet.</td>
                     </tr>
                 @endforelse
             </tbody>

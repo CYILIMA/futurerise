@@ -13,27 +13,37 @@
         <div class="form-success">{{ session('status') }}</div>
     @endif
 
-    <section class="admin-form">
+    <section class="admin-table-card">
         <form action="{{ route('admin.social.store') }}" method="post">
             @csrf
-
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Platform</th>
+                        <th scope="col">Profile link</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
             @foreach($platforms as $platformKey => $platformName)
                 @php
                     $currentLink = $socialLinks->get($platformName)?->url ?? '';
                 @endphp
 
-                <div class="form-group">
-                    <label for="social-link-{{ $platformKey }}">{{ $platformName }}</label>
-                    <input
+                <tr>
+                    <td><strong>{{ $platformName }}</strong></td>
+                    <td><input
                         id="social-link-{{ $platformKey }}"
                         name="social_links[{{ $platformKey }}]"
                         type="url"
                         value="{{ old('social_links.' . $platformKey, $currentLink) }}"
                         placeholder="https://{{ strtolower($platformName) }}.com/your-page"
-                    >
-                </div>
+                    ></td>
+                    <td><span @class(['status-pill', 'draft' => $currentLink === ''])>{{ $currentLink === '' ? 'Not set' : 'Configured' }}</span></td>
+                </tr>
             @endforeach
-
+                </tbody>
+            </table>
             <div class="form-actions">
                 <button class="button primary" type="submit">Save social links</button>
             </div>

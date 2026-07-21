@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminBackgroundController;
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminDonationController;
 use App\Http\Controllers\AdminGalleryController;
@@ -75,6 +76,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/logo', [AdminLogoController::class, 'edit'])->name('logo.edit');
         Route::put('/logo', [AdminLogoController::class, 'update'])->name('logo.update');
+        Route::get('/background', [AdminBackgroundController::class, 'edit'])->name('background.edit');
+        Route::put('/background', [AdminBackgroundController::class, 'update'])->name('background.update');
 
         Route::get('/gallery', [AdminGalleryController::class, 'index'])->name('gallery.index');
         Route::post('/gallery', [AdminGalleryController::class, 'store'])->name('gallery.store');
@@ -83,11 +86,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/team', [AdminTeamController::class, 'index'])->name('team.index');
         Route::post('/team', [AdminTeamController::class, 'store'])->name('team.store');
+        Route::get('/team/{teamMember}/edit', [AdminTeamController::class, 'edit'])->name('team.edit');
         Route::put('/team/{teamMember}', [AdminTeamController::class, 'update'])->name('team.update');
         Route::delete('/team/{teamMember}', [AdminTeamController::class, 'destroy'])->name('team.destroy');
 
         Route::get('/courses', [AdminCourseController::class, 'index'])->name('courses.index');
         Route::post('/courses', [AdminCourseController::class, 'store'])->name('courses.store');
+        Route::get('/courses/{course}/edit', [AdminCourseController::class, 'edit'])->name('courses.edit');
         Route::put('/courses/{course}', [AdminCourseController::class, 'update'])->name('courses.update');
         Route::delete('/courses/{course}', [AdminCourseController::class, 'destroy'])->name('courses.destroy');
 
